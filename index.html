@@ -396,6 +396,16 @@
 			});
 		  }, 30000);
 		}
+
+		// ===== ADD THIS HERE: Fetch shadowban at login! =====
+		getFirebaseShadowbanUntil(deviceId).then(until => {
+		  if (until > shadowbanUntil) {
+			shadowbanUntil = until;
+			localStorage.setItem("bananaShadowbanUntil", until); // Sync local for speed
+		  }
+		  if (Date.now() < shadowbanUntil) shadowbanTimerTick();
+		});
+		// ========================================
 	  }
 	});
 	
@@ -615,14 +625,7 @@
 
 	// --- Shadowban Anti-botting Logic ---
 	let shadowbanUntil = +(localStorage.getItem("bananaShadowbanUntil") || 0);
-	// Fetch from Firebase, update both
-	getFirebaseShadowbanUntil(deviceId).then(until => {
-	  if (until > shadowbanUntil) {
-		shadowbanUntil = until;
-		localStorage.setItem("bananaShadowbanUntil", until); // Sync local for speed
-	  }
-	  if (Date.now() < shadowbanUntil) shadowbanTimerTick();
-	});
+
 
 	let clickTimestamps = []; // Holds the last N click timestamps
 	let shadowbanWarnActive = false; // NEW: tracks if warning is already showing
