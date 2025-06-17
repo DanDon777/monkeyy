@@ -1070,7 +1070,7 @@
 		html += `<div style="color:#ffe46c;text-align:center;margin:12px 0;font-size:1.14em;">Nobody's on the board yet. Be the first to flex!</div>`;
 	  } else {
 		html += `<div class="leaderboard-table">`;
-		today.slice(0, 5).forEach((p, i) => {
+		today.slice(0, 3).forEach((p, i) => {
 		  html += `
 			<div class="leaderboard-row${i === 0 ? ' top1' : ''}${p.nickname === nickname ? ' your' : ''}">
 			  <span class="spot">${i === 0 ? '👑' : (i + 1) + '.'}</span>
@@ -1083,29 +1083,9 @@
 				<span class="xp">XP: ${p.xp}</span>
 				<span class="streak">🔥 ${p.streak}</span>
 			  </span>
-			  ${i === 0 ? `<button class="share-btn" onclick="navigator.clipboard.writeText(window.location.href);alert('Share your flex!')">📣</button>` : ""}
 			</div>
 		  `;
 		});
-		// Show your position if not in top 5
-		const yourIndex = today.findIndex(p => p.nickname === nickname);
-		if (yourIndex >= 5) {
-		  const you = today[yourIndex];
-		  html += `
-			<div class="leaderboard-row your">
-			  <span class="spot">${yourIndex + 1}.</span>
-			  <span class="avatar">${getRankAvatar(you.rank)}</span>
-			  <span class="name">${you.nickname}</span>
-			  <span class="badge you">YOU</span>
-			  <span class="meta">
-				<span class="level">Lv. ${you.level}</span>
-				<span class="xp">XP: ${you.xp}</span>
-				<span class="streak">🔥 ${you.streak}</span>
-			  </span>
-			  <button class="share-btn" onclick="navigator.clipboard.writeText(window.location.href);alert('Show your rank flex!')">📣</button>
-			</div>
-		  `;
-		}
 		html += `</div>`; // .leaderboard-table
 	  }
 	  // Yesterday's king (optional)
