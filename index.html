@@ -1064,28 +1064,25 @@
 	  const today = await getLeaderboard(todayKey);
 	  const yesterday = await getLeaderboard(yesterdayKey);
 
-	  let html = `<div class="leaderboard-container">`;
-
-	  // Consistent sticky header
-	  html += `
+	  let html = `<div class="leaderboard-container">
 		<div class="leader-title">
 		  <span style="font-size:1.25em;">🏆 Banana Board</span> 
 		  <span style="color:#ffe46c;font-weight:700;font-size:1.05em;">— Top Levels Today</span>
-		</div>
-	  `;
+		</div>`;
 
 	  if (today.length === 0) {
 		html += `<div style="color:#ffe46c;text-align:center;margin:12px 0;font-size:1.14em;">Nobody's on the board yet. Be the first to flex!</div>`;
 	  } else {
+		const medals = ['🥇','🥈','🥉'];
+		const colors = ['#ffe46c','#bfc0c0','#c49550'];
 		html += `<div class="leaderboard-table">`;
 		today.slice(0, 3).forEach((p, i) => {
 		  html += `
-			<div class="leaderboard-row${i === 0 ? ' top1' : ''}${p.nickname === nickname ? ' your' : ''}">
-			  <span class="spot">${i === 0 ? '👑' : (i + 1) + '.'}</span>
+			<div class="leaderboard-row${i === 0 ? ' top1' : ''}${p.nickname === nickname ? ' your' : ''}" style="border-left: 7px solid ${colors[i]};">
+			  <span class="spot" style="color:${colors[i]};font-size:1.6em;">${medals[i]}</span>
 			  <span class="avatar">${getRankAvatar(p.rank)}</span>
 			  <span class="name">${p.nickname}</span>
 			  ${p.nickname === nickname ? '<span class="badge you">YOU</span>' : ''}
-			  ${i === 0 ? '<span class="badge king">KING</span>' : ''}
 			  <span class="meta">
 				<span class="level">Lv. ${p.level}</span>
 				<span class="xp">XP: ${p.xp}</span>
@@ -1096,7 +1093,7 @@
 		});
 		html += `</div>`; // .leaderboard-table
 	  }
-	  // Yesterday's king (optional)
+	  // Yesterday's king
 	  if (yesterday.length) {
 		const king = yesterday[0];
 		html += `<div style="margin:10px 0 0 0;text-align:center;font-size:1em;color:#ffd84d;">
