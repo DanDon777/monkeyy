@@ -1019,10 +1019,15 @@
 	}
 
 
-    // -- Realtime leaderboard, always update only YOUR deviceId
+	// -- Realtime leaderboard, always update only YOUR deviceId
 	async function updateLeaderboardLive() {
-	  if(!nickname || !cleanNickname(nickname)) return;
-	  state.rank = getRank(state.level||1, state.xp);
+	  // Prevent writing to leaderboard if:
+	  // - nickname is missing or not allowed
+	  // - OR level is missing, zero or less
+	  // - OR XP is negative (optional sanity)
+	  if (!nickname || !cleanNickname(nickname) || !state.level || state.level < 1 || state.xp < 0) return;
+
+	  state.rank = getRank(state.level || 1, state.xp);
 	  avatar = getRankAvatar(state.rank);
 	  const data = {
 		nickname: nickname,
@@ -1038,11 +1043,14 @@
 	  setTimeout(showLeaderboard, 200);
 	}
 
+
 	// -- Display leaderboard (sticky, always on screen!), ranked by LEVEL
 	async function getLeaderboard(dayKey) {
 	  const snap = await get(ref(db, 'leaderboard/' + dayKey));
 	  let arr = [];
 	  snap.forEach(child => arr.push(child.val()));
+	  // Filter out blank/placeholder entries *before* sorting/slicing
+	  arr = arr.filter(p => p.nickname && p.nickname.length >= 3 && p.level && p.level > 0);
 	  arr = arr.sort((a, b) => {
 		if (b.level !== a.level) return b.level - a.level;
 		if (b.xp !== a.xp) return b.xp - a.xp;
