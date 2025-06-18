@@ -1044,20 +1044,30 @@
 	}
 
 
-	// -- Display leaderboard (sticky, always on screen!), ranked by LEVEL
+
 	async function getLeaderboard(dayKey) {
 	  const snap = await get(ref(db, 'leaderboard/' + dayKey));
 	  let arr = [];
-	  snap.forEach(child => arr.push(child.val()));
-	  // Filter out blank/placeholder entries *before* sorting/slicing
-	  arr = arr.filter(p => p.nickname && p.nickname.length >= 3 && p.level && p.level > 0);
+	  snap.forEach(child => {
+		const v = child.val();
+		// Only add valid entries
+		if (v.nickname && v.nickname.length >= 3 && v.level >= 1) arr.push(v);
+	  });
+	  // Sort: level DESC, xp DESC, streak DESC, time DESC
 	  arr = arr.sort((a, b) => {
 		if (b.level !== a.level) return b.level - a.level;
 		if (b.xp !== a.xp) return b.xp - a.xp;
 		if (b.streak !== a.streak) return b.streak - a.streak;
 		return b.time - a.time;
-	  }).slice(0, 10);
-	  return arr;
+	  });
+	  // Remove duplicate nicknames (keep highest)
+	  const seen = new Set();
+	  arr = arr.filter(v => {
+		if (seen.has(v.nickname.toLowerCase())) return false;
+		seen.add(v.nickname.toLowerCase());
+		return true;
+	  });
+	  return arr.slice(0, 3); // Only show top 3
 	}
 
 	async function showLeaderboard() {
