@@ -1091,7 +1091,7 @@
 		today.slice(0, 3).forEach((p, i) => {
 		  html += `
 			<div class="leaderboard-row${i === 0 ? ' top1' : ''}${p.nickname === nickname ? ' your' : ''}">
-			  <span class="spot">${i === 0 ? '👑' : (i + 1) + '.'}</span>
+			  <span class="spot">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1) + '.'}</span>
 			  <span class="avatar">${getRankAvatar(p.rank)}</span>
 			  <span class="name">${p.nickname}</span>
 			  ${p.nickname === nickname ? '<span class="badge you">YOU</span>' : ''}
