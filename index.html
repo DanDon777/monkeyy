@@ -342,6 +342,10 @@
 		🔗
 		<span class="tooltip">Copy game link!</span>
 	  </span>
+	  <span id="soundToggle" class="share-emoji" tabindex="0" title="Mute/Unmute Sounds" onclick="toggleSound()">
+		🔊
+		<span class="tooltip">Mute/Unmute Sound</span>
+	  </span>
 	</div>
   </div>
   <!-- Sticky leaderboard, always visible at bottom -->
@@ -352,6 +356,19 @@
   </div>
   <div id="shareModalMount"></div>
   <script type="module">
+	// --- SOUND MUTE TOGGLE ---
+	let isMuted = localStorage.getItem("bananaMuted") === "1";
+
+	function toggleSound() {
+	  isMuted = !isMuted;
+	  localStorage.setItem("bananaMuted", isMuted ? "1" : "0");
+	  document.getElementById("soundToggle").innerText = isMuted ? "🔇" : "🔊";
+	}
+
+	// On DOM load, set correct emoji:
+	document.addEventListener('DOMContentLoaded', () => {
+	  document.getElementById("soundToggle").innerText = isMuted ? "🔇" : "🔊";
+	});
     // -- Firebase imports
 	const { initializeApp, getDatabase, ref, set, query, orderByChild, limitToLast, get, onValue, serverTimestamp, getAuth, signInAnonymously, onAuthStateChanged } = window.FirebaseMod;
     // -- Firebase config
@@ -847,9 +864,9 @@
       let prev = document.getElementById('shareModalBg');
       if(prev) prev.remove();
       // Play sounds & confetti
-      document.getElementById('soundLevelUp').play();
-      if(Math.random()>0.5) document.getElementById('soundMonkey1').play();
-      else document.getElementById('soundMonkey2').play();
+      if (!isMuted) document.getElementById('soundLevelUp').play();
+      if (!isMuted && Math.random() > 0.5) document.getElementById('soundMonkey1').play();
+      else if (!isMuted) document.getElementById('soundMonkey2').play();
       updateAvatarUI(true);
       // Modern persistent modal
       showShareModal(level, state.xp, getRankAvatar(getRank(level,state.xp)), nickname);
@@ -964,11 +981,11 @@
       updateBars();
       saveLocal();
       updateLeaderboardLive();
-      document.getElementById('soundPranked').play();
+      if (!isMuted) document.getElementById('soundPranked').play();
 	  document.getElementById('nicknameInput').value = nickname;
       // Random monkey sound for more hype
-      if(Math.random()>0.55) document.getElementById('soundMonkey1').play();
-      if(Math.random()<0.22) document.getElementById('soundMonkey2').play();
+      if (!isMuted && Math.random() > 0.55) document.getElementById('soundMonkey1').play();
+      if (!isMuted && Math.random() < 0.22) document.getElementById('soundMonkey2').play();
       bananaConfetti("🍌");
       nextPrank();
     }
@@ -989,7 +1006,7 @@
       state.streak = 0;
       state.xp = Math.max(0, state.xp-5);
       showWarn(`Passed! -5 XP, streak reset.`, 1800);
-      document.getElementById('soundPass').play();
+      if (!isMuted) document.getElementById('soundPass').play();
 	  document.getElementById('nicknameInput').value = nickname;
       bananaConfetti("🍆");
       updateBars();
@@ -1125,7 +1142,7 @@
 	  // Confetti for #1 spot
 	  if (today.length && today[0].nickname === nickname) {
 		flexConfetti("👑");
-		if (Math.random() > 0.5) document.getElementById('soundMonkey1').play();
+		if (!isMuted && Math.random() > 0.5) document.getElementById('soundMonkey1').play();
 	  }
 	}
 
