@@ -369,6 +369,7 @@
 	document.addEventListener('DOMContentLoaded', () => {
 	  document.getElementById("soundToggle").innerText = isMuted ? "🔇" : "🔊";
 	});
+	window.toggleSound = toggleSound;
     // -- Firebase imports
 	const { initializeApp, getDatabase, ref, set, query, orderByChild, limitToLast, get, onValue, serverTimestamp, getAuth, signInAnonymously, onAuthStateChanged } = window.FirebaseMod;
     // -- Firebase config
