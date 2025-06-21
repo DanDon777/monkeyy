@@ -450,6 +450,13 @@
     const todayKey = getDayKey();
     const yesterdayKey = getDayKey(Date.now()-86400000);
 
+	const savedDayKey = localStorage.getItem("bananaLastDayKey");
+	if (savedDayKey && savedDayKey !== todayKey) {
+	  localStorage.removeItem("bananaState");
+	  localStorage.setItem("bananaLastDayKey", todayKey);
+	  // Optionally, clear other per-day stuff here too if you ever add more
+	}
+
     // -- Nickname, anti-abuse, random name/avatars
     const BANNED_WORDS = [
       /nigg/i, /fag/i, /retard/i, /monkey\.app/i, /admin/i, /fuck/i, /shit/i, /bitch/i, /cunt/i, /hitler/i, /mod/i, /owner/i
@@ -877,6 +884,7 @@
       localStorage.setItem("bananaState", JSON.stringify(state));
       localStorage.setItem("bananaNick", nickname);
       localStorage.setItem("bananaAvatar", avatar);
+	  localStorage.setItem("bananaLastDayKey", todayKey);
     }
     function showWarn(msg, ms=1800) {
       let w = document.getElementById('nicknameWarn');
