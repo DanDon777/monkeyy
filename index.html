@@ -397,6 +397,7 @@
 	onAuthStateChanged(auth, user => {
 	  if (user) {
 		currentUid = user.uid;
+		dailyResetIfNeeded();
 		setInterval(updatePresence, 30000);
 
 		// Now safe to call things that need UID:
@@ -450,12 +451,7 @@
     const todayKey = getDayKey();
     const yesterdayKey = getDayKey(Date.now()-86400000);
 
-	const savedDayKey = localStorage.getItem("bananaLastDayKey");
-	if (savedDayKey && savedDayKey !== todayKey) {
-	  localStorage.removeItem("bananaState");
-	  localStorage.setItem("bananaLastDayKey", todayKey);
-	  // Optionally, clear other per-day stuff here too if you ever add more
-	}
+	dailyResetIfNeeded();
 
     // -- Nickname, anti-abuse, random name/avatars
     const BANNED_WORDS = [
@@ -507,6 +503,26 @@
       return id;
     }
     const deviceId = getDeviceId();
+
+	// ================= DAILY RESET FUNCTION ===================
+	async function dailyResetIfNeeded() {
+	  const savedDayKey = localStorage.getItem("bananaLastDayKey");
+	  if (savedDayKey !== todayKey) {
+		localStorage.removeItem("bananaState");
+		localStorage.setItem("bananaLastDayKey", todayKey);
+
+		if (currentUid) {
+		  await clearLeaderboardEntry();
+		} else {
+		  let _check = setInterval(() => {
+			if (currentUid) {
+			  clearLeaderboardEntry();
+			  clearInterval(_check);
+			}
+		  }, 120);
+		}
+	  }
+	}
 
     // -- Nickname: only once per 24h, 3 changes per day!
     function nicknameChangeAllowed() {
