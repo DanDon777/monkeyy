@@ -481,6 +481,7 @@
 	}
 
     function getRankAvatar(rank) {
+      if(rank=="Cuff")             return '<img src="/assets/emoji/cuff1.png" alt="Cuff" style="width:1.4em;height:1.4em;vertical-align:middle;">';
       if(rank=="Banana King")      return "👑🦍";
       if(rank=="Clout Demon")      return "😈🦍";
       if(rank=="Speedrunner")      return "🐒💨";
@@ -642,7 +643,7 @@
 	  if(e.key==='Enter') await setNicknameUI(document.getElementById('nicknameInput').value.trim());
 	});
 
-    // -- Pranks (Adin/Cuffem/Gen-Z/sus/edgy edge)
+    // -- Pranks
     const pranks = [
       {icon:"💀", desc:"Speedrun getting muted. Narrate it.", meta:"Ban Speedrun"},
 	  {icon:"🤡", desc:"Troll as a different ethnicity/nationality for one minute.", meta:"Method Actor"},
@@ -731,7 +732,7 @@
 
     // -- Game logic
     let passCount = 0, lastPrank = -1, lastPrankedAt = 0, botStrikes = 0;
-    const MIN_PRANK_TIME = 1200 + Math.floor(Math.random()*1300);
+    const MIN_PRANK_TIME = 1 + Math.floor(Math.random()*1);
 
 	// --- Shadowban Anti-botting Logic ---
 	let shadowbanUntil = +(localStorage.getItem("bananaShadowbanUntil") || 0);
@@ -784,6 +785,7 @@
 
 
     function getRank(level, xp) {
+      if(level>=50) return "Cuff";
       if(level>=40) return "Banana King";
       if(level>=30) return "Clout Demon";
       if(level>=25) return "Speedrunner";
