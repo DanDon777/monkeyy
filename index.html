@@ -200,12 +200,23 @@
 	  color: #fff5c8;
 	}
 	.badge.cuff {
-	  background: #f44;
+	  background: linear-gradient(90deg, #8b0000, #ff4444, #d70040, #8b0000 80%);
 	  color: #fff;
 	  font-weight: bold;
-	  animation: kingglow 1.6s infinite alternate;
-	  box-shadow: 0 0 10px 3px #f4433688;
-	  text-shadow: 0 0 4px #f44, 0 0 2px #fff3;
+	  letter-spacing: 1.2px;
+	  border: 2px solid #ff000080;
+	  box-shadow: 0 0 16px 6px #ff0000cc, 0 0 6px #ff3333;
+	  text-shadow: 
+	    0 0 8px #ff3333,
+	    0 0 18px #d70040,
+	    0 0 28px #ff0000;
+	  animation: cuff-blood-pulse 1.4s infinite alternate, kingglow 1.2s infinite alternate;
+	  filter: drop-shadow(0 0 8px #ff3333aa);
+	}
+	@keyframes cuff-blood-pulse {
+	  0%   { box-shadow: 0 0 8px 3px #ff0000cc; text-shadow: 0 0 7px #d70040, 0 0 1px #ff3333;}
+	  50%  { box-shadow: 0 0 24px 11px #ff0000dd; text-shadow: 0 0 16px #ff3333, 0 0 8px #d70040;}
+	  100% { box-shadow: 0 0 8px 3px #ff0000cc; text-shadow: 0 0 7px #d70040, 0 0 1px #ff3333;}
 	}
 	.leaderboard-row .badge {
 	  padding: 1px 9px;
