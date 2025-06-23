@@ -481,7 +481,7 @@
 	}
 
     function getRankAvatar(rank) {
-      if(rank=="Cuff") 		   return '<img src="/assets/emoji/cuff1.png" alt="Cuff" style="width:1.4em;height:1.4em;vertical-align:middle;">';
+      if(rank=="Cuff") 		   return '<img src="/assets/emoji/cuff2.png" alt="Cuff" style="width:1.4em;height:1.4em;vertical-align:middle;">';
       if(rank=="Banana King")      return "👑🦍";
       if(rank=="Clout Demon")      return "😈🦍";
       if(rank=="Speedrunner")      return "🐒💨";
@@ -799,6 +799,7 @@
       return "Peasant";
     }
     function getRankBadge(rank) {
+      if(rank=="Cuff") return '<span class="Cuff">Cuff</span>';
       if(rank=="Banana King") return '<span class="badge king">🍌 King</span>';
       if(rank=="Clout Demon") return '<span class="badge sussy">Clout Demon 😈</span>';
       if(rank=="Speedrunner") return '<span class="badge goat">Speedrunner 💀</span>';
