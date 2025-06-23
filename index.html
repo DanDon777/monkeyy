@@ -78,7 +78,7 @@
 
 
     .confetti {position:fixed;z-index:99;pointer-events:none;user-select:none;}
-    /* Share modal s */
+    /* Share modal styles */
     .share-modal-bg {
       position: fixed; left:0;top:0;width:100vw;height:100vh;background:#0008;z-index:1001;display: flex;justify-content: center;align-items: center;
       animation: fadein .18s;
@@ -481,7 +481,7 @@
 	}
 
     function getRankAvatar(rank) {
-      if(rank=="Cuff") 		   return '<img src="/assets/emoji/cuff2.png" alt="Cuff" style="width:1.4em;height:1.4em;vertical-align:middle;">';
+      if(rank=="Cuff")             return '<img src="/assets/emoji/cuff1.png" alt="Cuff" style="width:1.4em;height:1.4em;vertical-align:middle;">';
       if(rank=="Banana King")      return "👑🦍";
       if(rank=="Clout Demon")      return "😈🦍";
       if(rank=="Speedrunner")      return "🐒💨";
@@ -732,7 +732,7 @@
 
     // -- Game logic
     let passCount = 0, lastPrank = -1, lastPrankedAt = 0, botStrikes = 0;
-    const MIN_PRANK_TIME = 1 + Math.floor(Math.random()*1);
+    const MIN_PRANK_TIME = 1200 + Math.floor(Math.random()*1300);
 
 	// --- Shadowban Anti-botting Logic ---
 	let shadowbanUntil = +(localStorage.getItem("bananaShadowbanUntil") || 0);
@@ -785,21 +785,20 @@
 
 
     function getRank(level, xp) {
-      if(level>=15) return "Cuff";
-      if(level>=14) return "Banana King";
-      if(level>=13) return "Clout Demon";
-      if(level>=12) return "Speedrunner";
-      if(level>=11) return "Discord Kitten";
-      if(level>=10) return "NPC Mod";
-      if(level>=9) return "Rizzler";
-      if(level>=8) return "Ohio Legend";
+      if(level>=50) return "Cuff";
+      if(level>=40) return "Banana King";
+      if(level>=30) return "Clout Demon";
+      if(level>=25) return "Speedrunner";
+      if(level>=20) return "Discord Kitten";
+      if(level>=17) return "NPC Mod";
+      if(level>=13) return "Rizzler";
+      if(level>=10) return "Ohio Legend";
       if(level>=7)  return "Sussy Baka";
       if(level>=5)  return "Ratio Demon";
       if(level>=3)  return "Down Bad";
       return "Peasant";
     }
     function getRankBadge(rank) {
-      if(rank=="Cuff") return '<span class="Cuff">Cuff</span>';
       if(rank=="Banana King") return '<span class="badge king">🍌 King</span>';
       if(rank=="Clout Demon") return '<span class="badge sussy">Clout Demon 😈</span>';
       if(rank=="Speedrunner") return '<span class="badge goat">Speedrunner 💀</span>';
