@@ -481,7 +481,7 @@
 	}
 
     function getRankAvatar(rank) {
-      if(rank=="Cuff") 		   return "<img src="/assets/emoji/cuff1.png">";
+      if(rank=="Cuff") 		   return '<img src="/assets/emoji/cuff1.png" alt="Cuff" style="width:1.4em;height:1.4em;vertical-align:middle;">';
       if(rank=="Banana King")      return "👑🦍";
       if(rank=="Clout Demon")      return "😈🦍";
       if(rank=="Speedrunner")      return "🐒💨";
@@ -630,7 +630,7 @@
     function updateAvatarUI(flex = false) {
       avatar = getRankAvatar(state.rank);
       const prof = document.getElementById('avatarProfile');
-      prof.textContent = avatar;
+      prof.innerHTML = avatar;
       if (flex) {
         prof.classList.add('flex');
         setTimeout(()=>prof.classList.remove('flex'), 800);
