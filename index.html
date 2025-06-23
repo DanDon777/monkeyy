@@ -62,7 +62,7 @@
 	  100% { box-shadow: 0 0 6px 2px #ffe46c77; opacity: 1; }
 	}
 
-    .badge.cuff {background:#ffb6f6;color:#232346;}
+	.badge.cuff {background:#ffb6f6;color:#232346;}
     .badge.legend {background:#ffb6f6;color:#232346;}
     .badge.goat {background:#8df7ff;color:#232346;}
     .badge.sussy {background:#ffde8a;color:#232346;}
@@ -786,7 +786,7 @@
 
 
     function getRank(level, xp) {
-      if(level>=16) return "Cuff";
+      if(level>=50) return "Cuff";
       if(level>=40) return "Banana King";
       if(level>=30) return "Clout Demon";
       if(level>=25) return "Speedrunner";
@@ -800,7 +800,7 @@
       return "Peasant";
     }
     function getRankBadge(rank) {
-      if(rank=="Cuff") return '<span class="badge cuff">🔴 Cuff</span>';
+	  if(rank=="Cuff") return '<span class="badge cuff">🔴 Cuff</span>';
       if(rank=="Banana King") return '<span class="badge king">🍌 King</span>';
       if(rank=="Clout Demon") return '<span class="badge sussy">Clout Demon 😈</span>';
       if(rank=="Speedrunner") return '<span class="badge goat">Speedrunner 💀</span>';
