@@ -140,9 +140,28 @@
       .levelbar { font-size: 0.88em;}
 
 	#leaderboardSticky {
+	  position: fixed;
+	  left: 0; right: 0; bottom: 0;
+	  z-index: 50;
+	  width: 100vw;
+	  background: none;
+	  pointer-events: none;
 	  display: flex;
 	  justify-content: center;
 	  padding-bottom: env(safe-area-inset-bottom, 0);
+	}
+	/* On mobile, disable sticky/fixed and make it normal */
+	@media (max-width: 520px) {
+	  #leaderboardSticky {
+	    position: static !important;
+	    width: 100%;
+	    background: none;
+	    pointer-events: all;
+	    box-shadow: none;
+	    margin: 0;
+	    padding-bottom: 0;
+	    z-index: 1;
+	  }
 	}
 	.leaderboard-container {
 	  width: 96vw; max-width: 560px;
