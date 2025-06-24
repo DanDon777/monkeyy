@@ -174,19 +174,13 @@
 	  position: relative;
 	  transition: background .2s;
 	}
-	.leaderboard-row.top1 {
-	  background: linear-gradient(90deg, #ffe46c33 0%, #ffef8240 80%, #ffe46c14 100%);
-	  box-shadow: 0 4px 26px #ffe46c33, 0 2px 18px #ffd84d33;
-	  font-weight: bold;
-	  border: 2px solid #ffe46cbb;
-	}
-	.leaderboard-row.your {
-	  border: 2px solid #55f191cc;
-	  background: linear-gradient(90deg,#223b30cc 0%, #55f19140 100%);
+	.leaderboard-row.your, .leaderboard-row.top1 {
+	  border-width: 1.5px;
+	  box-shadow: 0 2px 11px #ffe46c19, 0 1px 8px #55f19116;
 	}
 	.leaderboard-row .avatar {
-	  font-size: 1.5em;
-	  margin-right: 3px;
+	  font-size: 1.25em;
+	  margin-right: 2px;
 	}
 	.leaderboard-row .spot {
 	  min-width: 2em;
@@ -201,28 +195,27 @@
 	  color: #fff5c8;
 	}
 	.leaderboard-row .badge {
-	  padding: 1px 9px;
-	  border-radius: 10px;
-	  font-size: .90em;
-	  font-weight: bold;
-	  margin-right: 4px;
+	  font-size: 0.88em;
+	  padding: 1px 6px;
 	  margin-left: 2px;
+	  margin-right: 2px;
 	}
-	.badge.you { background: #55f191; color: #212633;}
+	.badge.you {
+	  font-size: 0.88em;
+	  padding: 1px 6px;
+	  margin-left: 1px;
+	}
 	.badge.king { background: #ffe46c; color: #232346; box-shadow: 0 0 7px #ffe46c80;}
 	.leaderboard-row .meta {
-	  margin-left: auto;
-	  display: flex;
-	  align-items: center;
-	  gap: 13px;
-	  font-size: .96em;
+	  flex-direction: column;
+	  align-items: flex-end;
+	  gap: 1px;
+	  margin-left: 2vw;
 	}
 	.leaderboard-row .meta span {
-	  color: #98ffe0;
-	  background: #22293b;
-	  border-radius: 6px;
-	  padding: 0 7px;
-	  font-weight: 500;
+	  margin: 0 0 0 0;
+	  padding: 1px 5px;
+	  font-size: .95em;
 	}
 	.leaderboard-row .meta .level { color: #ffd84d; background: #232346;}
 	.leaderboard-row .meta .xp { color: #ffb6f6; background: #232346;}
@@ -246,7 +239,12 @@
 	}
 	@media (max-width: 540px) {
 	  .leaderboard-container { padding: 7px 3px 3vw 3px; }
-	  .leaderboard-row { font-size: .98em; padding: 6px 4vw 6px 3vw; }
+	  .leaderboard-row {
+	    font-size: 1.06em;
+	    padding: 12px 2vw 12px 2vw;  /* More breathing room vertically */
+	    min-height: 56px;
+	  }
+
 	}
 
       .main {padding-bottom:34vh;}
