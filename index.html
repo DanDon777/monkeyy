@@ -150,19 +150,6 @@
 	  justify-content: center;
 	  padding-bottom: env(safe-area-inset-bottom, 0);
 	}
-	/* On mobile, disable sticky/fixed and make it normal */
-	@media (max-width: 520px) {
-	  #leaderboardSticky {
-	    position: static !important;
-	    width: 100%;
-	    background: none;
-	    pointer-events: all;
-	    box-shadow: none;
-	    margin: 0;
-	    padding-bottom: 0;
-	    z-index: 1;
-	  }
-	}
 	.leaderboard-container {
 	  width: 96vw; max-width: 560px;
 	  margin: 0 auto 12px auto;
@@ -361,9 +348,9 @@
 		<span class="tooltip">Mute/Unmute Sound</span>
 	  </span>
 	</div>
-  <div id="leaderboardSticky"></div>
   </div>
-
+  <!-- Sticky leaderboard, always visible at bottom -->
+  <div id="leaderboardSticky"></div>
   <div id="footer" class="copyright">
     Monkeyy.app is not affiliated with monkey.app.<br>
     For entertainment only. Grind responsibly.
