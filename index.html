@@ -295,7 +295,54 @@
 	  visibility: visible;
 	  opacity: 1;
 	}
-	
+
+	/* Collapsible leaderboard - mobile only */
+	@media (max-width: 520px) {
+	  .mobile-lb-btn { 
+	    display: block !important; 
+	    width: 90%; 
+	    padding: 11px 0; 
+	    background: linear-gradient(90deg,#ffe46c,#55f191); 
+	    color: #232346; 
+	    border: none; 
+	    border-radius: 14px; 
+	    font-weight: bold; 
+	    font-size: 1.14em; 
+	    box-shadow: 0 2px 8px #0004;
+	    margin-bottom: 10px;
+	    cursor:pointer;
+	  }
+	  .collapsible-leaderboard {
+	    display: none;
+	    max-width: 99vw;
+	    margin: 0 auto;
+	    position: static !important;
+	    background: none;
+	    box-shadow: none;
+	    z-index: 1;
+	    padding-bottom: 0;
+	  }
+	  .collapsible-leaderboard.show {
+	    display: block;
+	  }
+	  /* Remove sticky on mobile */
+	  #leaderboardSticky {
+	    position: static !important;
+	    left: unset; right: unset; bottom: unset;
+	    width: 100%;
+	    pointer-events: all;
+	    background: none;
+	    box-shadow: none;
+	    padding-bottom: 0;
+	    margin: 0;
+	  }
+	}
+	@media (min-width: 521px) {
+	  .mobile-lb-btn { display:none !important; }
+	  .collapsible-leaderboard { display:block !important; }
+	}
+
+	  
   </style>
   <!-- SOUNDS -->
   <audio id="soundLevelUp" src="/assets/audio/levelup.mp3" preload="auto"></audio>
@@ -1269,7 +1316,39 @@
       setInterval(updateBars, 3300);
     });
 	
-
+	// Collapsible leaderboard for mobile
+	document.addEventListener('DOMContentLoaded', () => {
+	  // Detect mobile by width
+	  function isMobile() { return window.innerWidth <= 520; }
+	  const lbBtn = document.getElementById('toggleLbBtn');
+	  const lbBox = document.getElementById('leaderboardSticky');
+	  let lbOpen = false;
+	  function updateMobileLbUI() {
+	    if (isMobile()) {
+	      lbBtn.style.display = 'block';
+	      lbBox.classList.remove('show');
+	      lbBtn.innerText = "🏆 Show Leaderboard";
+	      lbOpen = false;
+	    } else {
+	      lbBtn.style.display = 'none';
+	      lbBox.classList.add('show');
+	    }
+	  }
+	  lbBtn.onclick = () => {
+	    lbOpen = !lbOpen;
+	    if (lbOpen) {
+	      lbBox.classList.add('show');
+	      lbBtn.innerText = "⬆️ Hide Leaderboard";
+	    } else {
+	      lbBox.classList.remove('show');
+	      lbBtn.innerText = "🏆 Show Leaderboard";
+	    }
+	  };
+	  // Run on load & resize
+	  updateMobileLbUI();
+	  window.addEventListener('resize', updateMobileLbUI);
+	});
+	
 	
 	if (Date.now() < shadowbanUntil) {
 	  shadowbanTimerTick();
