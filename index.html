@@ -139,6 +139,10 @@
       .streakbar { font-size: 0.98em;}
       .levelbar { font-size: 0.88em;}
 
+	  .mobile-lb-btn { display: block !important; width: 90%; padding: 11px 0; background: linear-gradient(90deg,#ffe46c,#55f191); color: #232346; border: none; border-radius: 14px; font-weight: bold; font-size: 1.14em; box-shadow: 0 2px 8px #0004; margin-bottom: 10px; cursor:pointer; }
+	  .collapsible-leaderboard { display: none; max-width: 99vw; margin: 0 auto; position: static !important; background: none; box-shadow: none; z-index: 1; padding-bottom: 0; }
+	  .collapsible-leaderboard.show { display: block; }
+
 	#leaderboardSticky {
 	  position: static !important;
 	  left: unset; right: unset; bottom: unset;
@@ -251,6 +255,12 @@
       .main {padding-bottom:34vh;}
       .share-modal {min-width:94vw;}
     }
+	
+	@media (min-width: 521px) {
+	  .mobile-lb-btn { display:none !important; }
+	  .collapsible-leaderboard { display:block !important; }
+	}
+	
     @keyframes fadeout { from{opacity:1;} to{opacity:0;} }
 	@keyframes confettifall {
 	  from { transform: translateY(0); opacity: .85; }
