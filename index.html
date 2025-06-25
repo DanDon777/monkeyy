@@ -1299,30 +1299,38 @@
 
 
 	document.addEventListener('DOMContentLoaded', () => {
-	  // Main UI updates
 	  updateBars();
 	  showLeaderboard();
 	  setInterval(showLeaderboard, 5000);
 	  setInterval(updateBars, 3300);
 	
-	  // Collapsible leaderboard for mobile
+	  // Collapsible leaderboard logic
 	  function isMobile() { return window.innerWidth <= 520; }
 	  const lbBtn = document.getElementById('toggleLbBtn');
 	  const lbBox = document.getElementById('leaderboardSticky');
-	  let lbOpen = false;
+	
+	  // Persist lbOpen state per session (so doesn't auto-close on updates)
+	  let lbOpen = sessionStorage.getItem('bananaLbOpen') === '1';
+	
 	  function updateMobileLbUI() {
 	    if (isMobile()) {
 	      lbBtn.style.display = 'block';
-	      lbBox.classList.remove('show');
-	      lbBtn.innerText = "🏆 Show Leaderboard";
-	      lbOpen = false;
+	      if (lbOpen) {
+	        lbBox.classList.add('show');
+	        lbBtn.innerText = "⬆️ Hide Leaderboard";
+	      } else {
+	        lbBox.classList.remove('show');
+	        lbBtn.innerText = "🏆 Show Leaderboard";
+	      }
 	    } else {
 	      lbBtn.style.display = 'none';
 	      lbBox.classList.add('show');
+	      lbOpen = false;
 	    }
 	  }
 	  lbBtn.onclick = () => {
 	    lbOpen = !lbOpen;
+	    sessionStorage.setItem('bananaLbOpen', lbOpen ? '1' : '');
 	    if (lbOpen) {
 	      lbBox.classList.add('show');
 	      lbBtn.innerText = "⬆️ Hide Leaderboard";
@@ -1331,10 +1339,17 @@
 	      lbBtn.innerText = "🏆 Show Leaderboard";
 	    }
 	  };
-	  // Run on load & resize
+	  // On leaderboard update, preserve open/closed state
+	  const oldShowLeaderboard = window.showLeaderboard;
+	  window.showLeaderboard = async function() {
+	    await oldShowLeaderboard();
+	    updateMobileLbUI();
+	  };
+	
 	  updateMobileLbUI();
 	  window.addEventListener('resize', updateMobileLbUI);
 	});
+
 
 	
 	if (Date.now() < shadowbanUntil) {
