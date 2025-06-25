@@ -139,17 +139,6 @@
       .streakbar { font-size: 0.98em;}
       .levelbar { font-size: 0.88em;}
 
-	#leaderboardSticky {
-	  position: fixed;
-	  left: 0; right: 0; bottom: 0;
-	  z-index: 50;
-	  width: 100vw;
-	  background: none;
-	  pointer-events: none;
-	  display: flex;
-	  justify-content: center;
-	  padding-bottom: env(safe-area-inset-bottom, 0);
-	}
 	.leaderboard-container {
 	  width: 96vw; max-width: 560px;
 	  margin: 0 auto 12px auto;
@@ -1309,16 +1298,14 @@
 	});
 
 
-    document.addEventListener('DOMContentLoaded', ()=>{
-      updateBars();
-      showLeaderboard();
-      setInterval(showLeaderboard, 5000);
-      setInterval(updateBars, 3300);
-    });
-	
-	// Collapsible leaderboard for mobile
 	document.addEventListener('DOMContentLoaded', () => {
-	  // Detect mobile by width
+	  // Main UI updates
+	  updateBars();
+	  showLeaderboard();
+	  setInterval(showLeaderboard, 5000);
+	  setInterval(updateBars, 3300);
+	
+	  // Collapsible leaderboard for mobile
 	  function isMobile() { return window.innerWidth <= 520; }
 	  const lbBtn = document.getElementById('toggleLbBtn');
 	  const lbBox = document.getElementById('leaderboardSticky');
@@ -1348,7 +1335,7 @@
 	  updateMobileLbUI();
 	  window.addEventListener('resize', updateMobileLbUI);
 	});
-	
+
 	
 	if (Date.now() < shadowbanUntil) {
 	  shadowbanTimerTick();
